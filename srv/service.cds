@@ -5,16 +5,21 @@ using { RiskManagement as my } from '../db/schema';
 @path : '/service/RiskManagementSvcs'
 service RiskManagementService
 {
+    annotate A_BusinessPartner with @restrict :
+    [
+        { grant : [ '*' ], to : [ 'authenticated-user' ] }
+    ];
+
     annotate Mitigations with @restrict :
     [
         { grant : [ '*' ], to : [ 'RiskManager' ] },
-        { grant : [ '*' ], to : [ 'RiskViewer' ] }
+        { grant : [ 'READ' ], to : [ 'RiskViewer' ] }
     ];
 
     annotate Risks with @restrict :
     [
         { grant : [ '*' ], to : [ 'RiskManager' ] },
-        { grant : [ '*' ], to : [ 'RiskViewer' ] }
+        { grant : [ 'READ' ], to : [ 'RiskViewer' ] }
     ];
 
     @odata.draft.enabled
